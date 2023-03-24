@@ -3,7 +3,7 @@ from src.routers import user
 
 
 app = FastAPI()
-app.include_router(user.router)
+app.include_router(user.router_v1)
 
 
 
