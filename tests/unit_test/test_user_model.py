@@ -3,7 +3,6 @@ from pydantic.error_wrappers import ValidationError
 from src.models.user import User
 
 
-
 def test_create_user():
     user = User(
         name='Pedro Ivo Mendes de Santana',
@@ -21,6 +20,15 @@ def test_create_user_missing_field():
     with pytest.raises(ValidationError):
         User(
             name='Pedro Ivo Mendes de Santana',
+            email='pedro@email.com',
+            password='password@123'
+        )
+
+def test_create_user_with_invalid_cpf():
+    with pytest.raises(ValidationError):
+        User(
+            name='Pedro Ivo Mendes de Santana',
+            cpf='99999988877',
             email='pedro@email.com',
             password='password@123'
         )
