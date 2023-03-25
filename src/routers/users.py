@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.models.user import User
+from src.domain.user import User
 
 router_v1 = APIRouter(prefix='v1/user')
 
