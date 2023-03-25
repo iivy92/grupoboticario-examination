@@ -1,6 +1,6 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
-from src.models.user import User
+from src.domain.user import User
 
 
 def test_create_user():
