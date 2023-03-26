@@ -9,14 +9,8 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 Base = declarative_base()
 
 class DatabaseConnection:
-    def __init__(self) -> None:
+    def __new__(self) -> Session:
         self._engine = create_engine(
             SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
         )
-    
-    def __new__(self) -> Session:
-        session = sessionmaker(autocommit=False, autoflush=False, bind=self._engine)
-        try:
-            yield session
-        finally:
-            session.close()
+        return sessionmaker(autocommit=False, autoflush=False, bind=self._engine)
