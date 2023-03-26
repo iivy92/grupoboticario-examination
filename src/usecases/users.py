@@ -12,8 +12,13 @@ class UserUseCases:
         self._repository = SqlAlchemyRepository(self._session)
     
     async def signup(self, user: User):
+        _user = self._repository.get_user_by_cpf(user)
+        if _user:
+            # TODO: raise exception for user already exist
+            pass
+        
+        _user = Users(user)
+        self._repository.add(_user)
+        return _user
 
-        # TODO: verificar se usuario ja existe
-        # TODO: se nao existir incluir no banco
-        pass
         
