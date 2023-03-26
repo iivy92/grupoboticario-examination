@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-from src.domain.user import *
+from src.schemas.user import *
 from src.usecases.users import UserUseCases
 from http import HTTPStatus
 

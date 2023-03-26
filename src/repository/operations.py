@@ -1,6 +1,6 @@
 import abc
 from src.repository import models
-from src.domain.user import User
+from src.schemas.user import User
 from sqlalchemy.orm import Session
 
 

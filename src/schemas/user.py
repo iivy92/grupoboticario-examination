@@ -2,6 +2,7 @@ from src.utils.hasher import Hasher
 from pydantic import BaseModel, EmailStr, validator
 from typing import Optional
 from validate_docbr import CPF
+from dataclasses import dataclass
 
 class User(BaseModel):
     name: str
@@ -21,6 +22,7 @@ class User(BaseModel):
     def hash_password(cls, password: str):
         hasher = Hasher()
         return hasher.get_hashed_password(password)
+
 
 class UserCreated(BaseModel):
     id: int

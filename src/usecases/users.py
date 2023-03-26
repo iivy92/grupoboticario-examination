@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 from src.repository.connection import DatabaseConnection
 from src.repository.operations import SqlAlchemyRepository
-from src.domain.user import *
+from src.schemas.user import *
 from src.repository import models
 
 
