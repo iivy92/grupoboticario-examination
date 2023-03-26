@@ -6,7 +6,7 @@ from http import HTTPStatus
 
 router_v1 = APIRouter(prefix='/v1/user')
 
-@router_v1.post('/signup', status_code=HTTPStatus.CREATED.value)
-async def signup_user(user: User) -> UserCreated:
+@router_v1.post('/signup', status_code=HTTPStatus.CREATED.value, response_model=UserCreated)
+async def signup_user(user: User) -> JSONResponse:
     user_created = await UserUseCases().signup(user)
     return JSONResponse(user_created.dict(), status_code=HTTPStatus.CREATED.value)
