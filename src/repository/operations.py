@@ -1,5 +1,5 @@
 import abc
-from src.repository.models import Users
+from src.repository import models
 from src.domain.user import User
 from sqlalchemy.orm import Session
 
@@ -26,9 +26,11 @@ class SqlAlchemyRepository(AbstractRepository):
     def add(self, model):
         self._session.add(model)
         self._session.commit()
+        self._session.refresh(model)
+        return model
     
     def get_user_by_cpf(self, user: User):
-        return self._session.query(Users).filter_by(cpf=user.cpf).one()
+        return self._session.query(models.User).filter_by(cpf=user.cpf).one_or_none()
 
     # def get(self, reference):
     #     return self._session.query(model.Batch).filter_by(reference=reference).one()

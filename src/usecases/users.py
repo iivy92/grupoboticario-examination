@@ -1,9 +1,10 @@
-from fastapi import Depends
+from fastapi import HTTPException
+from http import HTTPStatus
 
 from src.repository.connection import DatabaseConnection
 from src.repository.operations import SqlAlchemyRepository
-from src.domain.user import User
-from src.repository.models import Users
+from src.domain.user import *
+from src.repository import models
 
 
 class UserUseCases:
@@ -11,14 +12,16 @@ class UserUseCases:
         self._session = DatabaseConnection()
         self._repository = SqlAlchemyRepository(self._session)
     
-    async def signup(self, user: User):
+    async def signup(self, user: User) -> UserCreated:
         _user = self._repository.get_user_by_cpf(user)
-        if _user:
-            # TODO: raise exception for user already exist
-            pass
         
-        _user = Users(user)
-        self._repository.add(_user)
-        return _user
+        if _user:
+            raise HTTPException(
+                status_code=HTTPStatus.BAD_REQUEST.value, 
+                detail="User already registered"
+            )
+        
+        user_created = self._repository.add(models.User(**user.dict()))
+        return UserCreated(**user_created.__dict__)
 
         
