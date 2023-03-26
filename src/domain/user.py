@@ -1,11 +1,11 @@
 from src.utils.hasher import Hasher
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, EmailStr, validator
 from validate_docbr import CPF
 
 class User(BaseModel):
     name: str
     cpf: str
-    email: str
+    email: EmailStr
     password: str
 
     @validator('cpf')
