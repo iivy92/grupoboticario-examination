@@ -14,7 +14,7 @@ class DatabaseConnection:
             SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
         )
     
-    def database_session(self) -> Session:
+    def __new__(self) -> Session:
         session = sessionmaker(autocommit=False, autoflush=False, bind=self._engine)
         try:
             yield session

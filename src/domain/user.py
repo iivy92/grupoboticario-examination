@@ -1,3 +1,4 @@
+from src.utils.hasher import Hasher
 from pydantic import BaseModel, validator
 from validate_docbr import CPF
 
@@ -14,6 +15,11 @@ class User(BaseModel):
             raise ValueError("inavlid CPF")
         
         return cpf
+
+    @validator('password')
+    def hash_password(cls, password: str):
+        hasher = Hasher()
+        return hasher.get_hashed_password(password)
 
 
 
