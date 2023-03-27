@@ -3,8 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 
 
-# SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
-SQLALCHEMY_DATABASE_URL = "postgresql://default:root@127.0.0.1:5432/cashback"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./cashback.db"
+# SQLALCHEMY_DATABASE_URL = "postgresql://default:root@127.0.0.1:5432/cashback"
 
 Base = declarative_base()
 
