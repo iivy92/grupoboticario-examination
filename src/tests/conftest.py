@@ -1,5 +1,5 @@
 import pytest
-from src.utils.Authenticator import Authenticator
+from src.utils.authenticator import Authenticator
 from fastapi.testclient import TestClient
 from main import app
 from src.repository.models import User
@@ -13,9 +13,8 @@ def client():
     return client
 
 @pytest.fixture
-def Authenticator():
-    Authenticator = Authenticator()
-    return Authenticator
+def authenticator():
+    return Authenticator()
 
 @pytest.fixture(scope='session')
 def user_signup_payload():

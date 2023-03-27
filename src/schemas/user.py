@@ -20,8 +20,8 @@ class User(BaseModel):
 
     @validator('password')
     def hash_password(cls, password: str):
-        Authenticator = Authenticator()
-        return Authenticator.get_hashed_password(password)
+        authenticator = Authenticator()
+        return authenticator.get_hashed_password(password)
 
 
 class UserCreated(BaseModel):
@@ -32,3 +32,8 @@ class UserCreated(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UserToken(BaseModel):
+    access_token: str
+    refresh_token: str

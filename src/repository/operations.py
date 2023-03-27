@@ -29,8 +29,8 @@ class SqlAlchemyRepository(AbstractRepository):
         self._session.refresh(model)
         return model
     
-    def get_user_by_cpf(self, user: User):
-        return self._session.query(models.User).filter_by(cpf=user.cpf).one_or_none()
+    def get_user_by_cpf(self, cpf: str):
+        return self._session.query(models.User).filter_by(cpf=cpf).one_or_none()
 
     # def get(self, reference):
     #     return self._session.query(model.Batch).filter_by(reference=reference).one()

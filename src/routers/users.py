@@ -14,5 +14,5 @@ async def signup_user(user: User) -> JSONResponse:
 
 @router_v1.post('/signin', status_code=HTTPStatus.OK.value)
 async def signup_user(user_credentials: OAuth2PasswordRequestForm = Depends())-> JSONResponse:
-    user_created = await UserService().signin(user_credentials)
-    return JSONResponse(user_created.dict(), status_code=HTTPStatus.CREATED.value)
+    token_jwt = await UserService().signin(user_credentials)
+    return JSONResponse(token_jwt.dict(), status_code=HTTPStatus.CREATED.value)

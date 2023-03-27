@@ -41,7 +41,7 @@ def test_create_user_with_invalid_email():
             password='password@123'
         )
 
-def test_hashed_password(Authenticator):
+def test_hashed_password(authenticator):
     _password = 'password@123'
     user = User(
         name='Pedro Ivo Mendes de Santana',
@@ -50,4 +50,4 @@ def test_hashed_password(Authenticator):
         password=_password
     )
 
-    assert Authenticator.verify_hashed_password(_password, user.password)
+    assert authenticator.verify_hashed_password(_password, user.password)
