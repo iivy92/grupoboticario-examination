@@ -7,7 +7,7 @@ from src.schemas.user import *
 from src.repository import models
 
 
-class UserUseCases:
+class UserService:
     def __init__(self):
         self._session = DatabaseConnection()
         self._repository = SqlAlchemyRepository(self._session)
