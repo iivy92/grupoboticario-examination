@@ -1,4 +1,4 @@
-from src.utils.hasher import Hasher
+from src.utils.authenticator import Authenticator
 from pydantic import BaseModel, EmailStr, validator
 from typing import Optional
 from validate_docbr import CPF
@@ -20,8 +20,8 @@ class User(BaseModel):
 
     @validator('password')
     def hash_password(cls, password: str):
-        hasher = Hasher()
-        return hasher.get_hashed_password(password)
+        Authenticator = Authenticator()
+        return Authenticator.get_hashed_password(password)
 
 
 class UserCreated(BaseModel):
