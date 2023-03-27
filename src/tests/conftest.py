@@ -3,7 +3,6 @@ from fastapi.testclient import TestClient
 from validate_docbr import CPF
 
 from main import app
-from src.repository.models import User
 from src.utils.authenticator import Authenticator
 
 cpf_validator = CPF()

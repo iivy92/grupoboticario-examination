@@ -7,7 +7,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from src.repository import models
 from src.repository.connection import DatabaseConnection
 from src.repository.operations import SqlAlchemyRepository
-from src.schemas.user import *
+from src.schemas.user import User, UserCreated, UserToken
 from src.utils.authenticator import Authenticator
 
 reuseable_oauth = OAuth2PasswordBearer(tokenUrl="v1/user/signin", scheme_name="JWT")

@@ -6,8 +6,11 @@ clean:
 	find . -type d -name .pytest_cache -exec rm -r {} \+
 
 format:
-	black src
-	isort src
+	black src/
+	isort src/
 
 lint:
-	flake8 src/
+	flake8 --ignore=E501 src/
+
+test:
+	python -m pytest
