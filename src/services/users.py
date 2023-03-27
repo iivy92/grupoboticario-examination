@@ -1,5 +1,6 @@
 from fastapi import HTTPException, Depends
 from http import HTTPStatus
+from datetime import datetime
 
 from src.repository.connection import DatabaseConnection
 from src.repository.operations import SqlAlchemyRepository
@@ -7,7 +8,10 @@ from src.schemas.user import *
 from src.repository import models
 from src.utils.authenticator import Authenticator
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 
+
+reuseable_oauth = OAuth2PasswordBearer(tokenUrl="v1/user/signin", scheme_name="JWT")
 
 class UserService:
     def __init__(self):
@@ -50,5 +54,22 @@ class UserService:
         
         return UserToken(access_token=token_jwt)
 
-    async def verify_login(self, token: str = Depends()) -> UserToken:
-        pass
+    async def verify_login(self, token = Depends(reuseable_oauth)) -> UserCreated:
+        token_payload = self._authenticator.decode_jwt_token(token)
+        
+        if datetime.fromtimestamp(token_payload['exp']) < datetime.now():
+            raise HTTPException(
+                status_code = HTTPStatus.UNAUTHORIZED.value,
+                detail="Token expired",
+            )
+        
+        user = self._repository.get_user_by_cpf(token_payload['user'])
+
+        if user is None:
+            raise HTTPException(
+                status_code=HTTPStatus.NOT_FOUND.value,
+                detail="Could not find user",
+            )
+
+        return UserCreated(**user.__dict__)
+        

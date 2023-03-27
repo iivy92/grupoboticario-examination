@@ -12,7 +12,11 @@ async def signup_user(user: User) -> JSONResponse:
     user_created = await UserService().signup(user)
     return JSONResponse(user_created.dict(), status_code=HTTPStatus.CREATED.value)
 
-@router_v1.post('/signin', status_code=HTTPStatus.OK.value)
+@router_v1.post('/signin', status_code=HTTPStatus.OK.value, response_model=UserToken)
 async def signin_user(user_credentials: OAuth2PasswordRequestForm = Depends())-> JSONResponse:
     token_jwt = await UserService().signin(user_credentials)
     return JSONResponse(token_jwt.dict(), status_code=HTTPStatus.OK.value)
+
+@router_v1.get('/me', status_code=HTTPStatus.OK.value, response_model=UserCreated)
+async def me(user: UserCreated = Depends(UserService().verify_login))-> JSONResponse:
+    return JSONResponse(user.dict(), status_code=HTTPStatus.OK.value)
