@@ -1,7 +1,7 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
 
-from src.schemas.user import *
+from src.schemas.user import User, UserCreated, UserToken
 
 
 def test_create_user():

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
-from src.schemas.user import *
+from src.schemas.user import User, UserCreated, UserToken
 from src.services.users import UserService
 
 router_v1 = APIRouter(prefix="/v1/user")

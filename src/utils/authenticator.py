@@ -3,7 +3,6 @@ from http import HTTPStatus
 
 import jwt
 from fastapi.exceptions import HTTPException
-from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 
 SECRET = "my-secret"
@@ -30,7 +29,7 @@ class Authenticator:
         try:
             jwt_payload = jwt.decode(token, SECRET, algorithms=["HS256"])
             return jwt_payload
-        except Exception as e:
+        except Exception:
             raise HTTPException(
                 status_code=HTTPStatus.FORBIDDEN.value,
                 detail="Could not validate credentials",

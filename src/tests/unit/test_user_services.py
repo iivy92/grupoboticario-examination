@@ -1,7 +1,5 @@
 from http import HTTPStatus
 
-import pytest
-
 
 def test_user_singup_successfully(client, user_signup_payload):
     response = client.post("/v1/user/signup", json=user_signup_payload)

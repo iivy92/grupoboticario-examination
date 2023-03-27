@@ -10,4 +10,4 @@ format:
 	isort src
 
 lint:
-	flake8 .
+	flake8 src/
