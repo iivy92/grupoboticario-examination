@@ -1,6 +1,6 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
-from src.schemas.user import User
+from src.schemas.user import *
 
 
 def test_create_user():
@@ -51,3 +51,22 @@ def test_hashed_password(authenticator):
     )
 
     assert authenticator.verify_hashed_password(_password, user.password)
+
+
+def test_created_user():
+    user = UserCreated(
+        id=1,
+        name='Pedro Ivo Mendes de Santana',
+        cpf='03374110509',
+        email='pedro@email.com',
+    )
+    assert user.id == 1
+    assert user.name == 'Pedro Ivo Mendes de Santana'
+    assert user.cpf == '03374110509'
+    assert user.email == 'pedro@email.com'
+
+def test_user_token():
+    token = UserToken(
+        access_token='some-token'
+    )
+    assert token.access_token == 'some-token'

@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Depends
 from http import HTTPStatus
 
 from src.repository.connection import DatabaseConnection
@@ -14,7 +14,7 @@ class UserService:
         self._session = DatabaseConnection()
         self._repository = SqlAlchemyRepository(self._session)
         self._authenticator = Authenticator()
-    
+        
     
     async def signup(self, user: User) -> UserCreated:
         _user = self._repository.get_user_by_cpf(user.cpf)
@@ -49,3 +49,6 @@ class UserService:
         token_jwt = self._authenticator.generate_jwt_token(user_from_db)
         
         return UserToken(access_token=token_jwt)
+
+    async def verify_login(self, token: str = Depends()) -> UserToken:
+        pass

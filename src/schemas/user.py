@@ -36,3 +36,5 @@ class UserCreated(BaseModel):
 
 class UserToken(BaseModel):
     access_token: str
+    user: Optional[str]
+    exp: Optional[str]
