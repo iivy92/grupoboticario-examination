@@ -1,8 +1,11 @@
-from src.utils.authenticator import Authenticator
-from pydantic import BaseModel, EmailStr, validator
-from typing import Optional
-from validate_docbr import CPF
 from dataclasses import dataclass
+from typing import Optional
+
+from pydantic import BaseModel, EmailStr, validator
+from validate_docbr import CPF
+
+from src.utils.authenticator import Authenticator
+
 
 class User(BaseModel):
     name: str
@@ -10,15 +13,15 @@ class User(BaseModel):
     email: EmailStr
     password: str
 
-    @validator('cpf')
+    @validator("cpf")
     def validate_cpf(cls, cpf: str):
         cpf_validator = CPF()
         if not cpf_validator.validate(cpf):
             raise ValueError("inavlid CPF")
-        
+
         return cpf
 
-    @validator('password')
+    @validator("password")
     def hash_password(cls, password: str):
         authenticator = Authenticator()
         return authenticator.get_hashed_password(password)

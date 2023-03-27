@@ -1,7 +1,9 @@
 import abc
+
+from sqlalchemy.orm import Session
+
 from src.repository import models
 from src.schemas.user import User
-from sqlalchemy.orm import Session
 
 
 class AbstractRepository(abc.ABC):
@@ -12,11 +14,10 @@ class AbstractRepository(abc.ABC):
     # @abc.abstractmethod
     # def get(self, reference):
     #     raise NotImplementedError
-    
+
     @abc.abstractmethod
     def get_user_by_cpf(self, user: User):
         raise NotImplementedError
-
 
 
 class SqlAlchemyRepository(AbstractRepository):
@@ -28,7 +29,7 @@ class SqlAlchemyRepository(AbstractRepository):
         self._session.commit()
         self._session.refresh(model)
         return model
-    
+
     def get_user_by_cpf(self, cpf: str):
         return self._session.query(models.User).filter_by(cpf=cpf).one_or_none()
 
@@ -37,5 +38,3 @@ class SqlAlchemyRepository(AbstractRepository):
 
     # def list(self):
     #     return self._session.query(model.Batch).all()
-
-

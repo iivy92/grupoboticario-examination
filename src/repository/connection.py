@@ -1,11 +1,11 @@
 import sqlalchemy
-from sqlalchemy.orm import sessionmaker, Session
-
+from sqlalchemy.orm import Session, sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./cashback.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://default:root@127.0.0.1:5432/cashback"
 
 Base = sqlalchemy.orm.declarative_base()
+
 
 class DatabaseConnection:
     def __new__(self) -> Session:
