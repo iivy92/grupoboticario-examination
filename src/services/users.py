@@ -15,6 +15,7 @@ class UserService:
         self._repository = SqlAlchemyRepository(self._session)
         self._authenticator = Authenticator()
     
+    
     async def signup(self, user: User) -> UserCreated:
         _user = self._repository.get_user_by_cpf(user.cpf)
         
@@ -27,6 +28,7 @@ class UserService:
         user_created = self._repository.add(models.User(**user.dict()))
         return UserCreated(**user_created.__dict__)
 
+    
     async def signin(self, user_login: OAuth2PasswordRequestForm) -> UserToken:
         user_from_db = self._repository.get_user_by_cpf(user_login.username)
         
@@ -44,8 +46,6 @@ class UserService:
                 detail="Invalid Credentials"
             )
         
-        token_jwt = self._authenticator.generate_jwt_token()
+        token_jwt = self._authenticator.generate_jwt_token(user_from_db)
         
-        return UserToken(**token_jwt)
-
-        
+        return UserToken(access_token=token_jwt)

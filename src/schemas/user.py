@@ -36,4 +36,3 @@ class UserCreated(BaseModel):
 
 class UserToken(BaseModel):
     access_token: str
-    refresh_token: str
