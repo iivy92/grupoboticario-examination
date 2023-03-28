@@ -13,4 +13,5 @@ lint:
 	flake8 --ignore=E501 src/
 
 test:
-	python -m pytest
+	pytest --cov=.
+	

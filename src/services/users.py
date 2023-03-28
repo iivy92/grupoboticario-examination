@@ -46,7 +46,7 @@ class UserService:
                 status_code=HTTPStatus.UNAUTHORIZED.value, detail="Invalid Credentials"
             )
 
-        token_jwt = self._authenticator.generate_jwt_token(user_from_db)
+        token_jwt = self._authenticator.generate_jwt_token(user_from_db.cpf)
 
         return UserToken(access_token=token_jwt)
 
