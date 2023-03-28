@@ -50,7 +50,7 @@ class UserService:
 
         return UserToken(access_token=token_jwt)
 
-    async def verify_login(self, token=Depends(reuseable_oauth)) -> UserCreated:
+    async def get_token_header(self, token=Depends(reuseable_oauth)) -> UserCreated:
         token_payload = self._authenticator.decode_jwt_token(token)
 
         if datetime.fromtimestamp(token_payload["exp"]) < datetime.now():

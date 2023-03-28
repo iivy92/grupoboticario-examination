@@ -29,6 +29,8 @@ class CreateItem(Item):
     def set_status(cls, values):
         if not values["status"]:
             values["status"] = Status.IN_VALIDATION.value
+
         if values["user_cpf"] in DEAFAULT_CPF:
             values["status"] = Status.APPROVED.value    
+
         return values
