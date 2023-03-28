@@ -34,3 +34,10 @@ class CreateItem(Item):
             values["status"] = Status.APPROVED.value    
 
         return values
+    
+class CreatedItem(Item):
+    date: date
+
+    @validator('date')
+    def set_date(cls, date: date):
+        return date.strftime('%Y-%m-%d')

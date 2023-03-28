@@ -3,19 +3,20 @@ from http import HTTPStatus
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
-from src.schemas.item import Item, CreateItem
+from src.schemas.item import Item, CreatedItem
+from src.schemas.user import UserCreated
 from src.services.users import UserService
+from src.services.items import ItemService
 
 router_item_v1 = APIRouter(
     prefix="/v1/item", 
-    tags=["Items"], 
-    dependencies=[Depends(UserService().get_token_header)]
+    tags=["Items"]
 )
 
 
 @router_item_v1.post(
-    "/create", status_code=HTTPStatus.CREATED.value, response_model=CreateItem
+    "/create", status_code=HTTPStatus.CREATED.value, response_model=CreatedItem
 )
-async def create_item(item: Item) -> JSONResponse:
-    user_created = await UserService().signup(item)
-    return JSONResponse(user_created.dict(), status_code=HTTPStatus.CREATED.value)
+async def create_item(item: Item, user: UserCreated = Depends(UserService().get_token_header)) -> JSONResponse:
+    item_created = await ItemService().create_item(item, user)
+    return JSONResponse(item_created.dict(), status_code=HTTPStatus.CREATED.value)

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Date, Float, ForeignKey
 
 from src.repository.connection import Base
 
@@ -11,3 +11,14 @@ class User(Base):
     name = Column(String)
     email = Column(String)
     password = Column(String)
+
+
+class Item(Base):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    code = Column(String)
+    date = Column(Date)
+    price = Column(Float)
+    status = Column(String)
+    user_cpf = Column(String, ForeignKey('users.cpf'), index=True)
