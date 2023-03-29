@@ -7,7 +7,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from src.schemas.user import User, UserCreated, UserToken
 from src.services.users import UserService
 
-router_user_v1 = APIRouter(prefix="/v1/user", tags=["Users"])
+router_user_v1 = APIRouter(prefix="/v1/users", tags=["Users"])
 
 
 @router_user_v1.post(

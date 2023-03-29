@@ -17,7 +17,7 @@ class Item(Base):
     __tablename__ = "items"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    code = Column(String)
+    code = Column(String, unique=True)
     date = Column(Date)
     price = Column(Float)
     status = Column(String)

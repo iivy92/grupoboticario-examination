@@ -12,12 +12,18 @@ class Status(str, Enum):
 
 class Item(BaseModel):
     code: str
-    date: date
+    date: str
     price: float
     status: Optional[Status]
 
     class Config:
         use_enum_values = True
+
+
+class Items(BaseModel):
+    items: list[Item]
+    total_sales: Optional[float]
+
 
 class CreateItem(Item):
     user_cpf: str

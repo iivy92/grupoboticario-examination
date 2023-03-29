@@ -10,7 +10,7 @@ from src.repository.operations import SqlAlchemyRepository
 from src.schemas.user import User, UserCreated, UserToken
 from src.utils.authenticator import Authenticator
 
-reuseable_oauth = OAuth2PasswordBearer(tokenUrl="v1/user/signin", scheme_name="JWT")
+reuseable_oauth = OAuth2PasswordBearer(tokenUrl="v1/users/signin", scheme_name="JWT")
 
 
 class UserService:
