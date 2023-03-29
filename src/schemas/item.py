@@ -12,17 +12,12 @@ class Status(str, Enum):
 
 class Item(BaseModel):
     code: str
-    date: str
+    date: date
     price: float
     status: Optional[Status]
 
     class Config:
         use_enum_values = True
-
-
-class Items(BaseModel):
-    items: list[Item]
-    total_sales: Optional[float]
 
 
 class CreateItem(Item):
@@ -41,9 +36,16 @@ class CreateItem(Item):
 
         return values
     
-class CreatedItem(Item):
-    date: date
 
-    @validator('date')
-    def set_date(cls, date: date):
-        return date.strftime('%Y-%m-%d')
+class CreatedItem(Item):
+    @root_validator
+    def set_date(cls, values):
+        values['date'] =  values['date'].strftime('%Y-%m-%d')
+        return values
+
+
+class Items(BaseModel):
+    items: list[CreatedItem]
+    total_sales: Optional[float]
+    reward: Optional[float]
+    fee: Optional[str]

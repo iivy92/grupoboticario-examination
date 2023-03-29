@@ -5,7 +5,7 @@ import jwt
 from fastapi.exceptions import HTTPException
 from passlib.context import CryptContext
 
-SECRET = "my-secret"
+SECRET = "B4FvQWnTp718vr6AHyvdGlrHBGNcvuM4y3jUeRCgXxIwBZIbt"
 
 
 class Authenticator:
