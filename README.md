@@ -93,6 +93,7 @@ após subir aplição, documentação swagger disponível [aqui](http://0.0.0.0:
 | `status` | `string` | Status do pedido | (approved, in_validation) |
 
 #### Listar compras com informações de cashback
+Parametro `date` - data atual como valor padrão, não obrigatório, filtra lista com periodo de um mês retroativo a data informada 
 
 ```http
   GET /v1/items/search
