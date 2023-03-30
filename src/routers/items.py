@@ -29,4 +29,4 @@ async def create_item(item: Item, user: UserCreated = Depends(UserService().get_
 )
 async def get_items(date: date | None = None, user: UserCreated = Depends(UserService().get_token_header)) -> JSONResponse:
     item_created = await ItemService().get_items(user, date)
-    return JSONResponse(item_created.dict(), status_code=HTTPStatus.CREATED.value)
+    return JSONResponse(item_created.dict(), status_code=HTTPStatus.OK.value)
