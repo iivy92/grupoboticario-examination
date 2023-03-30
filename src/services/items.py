@@ -2,11 +2,12 @@ import datetime
 from http import HTTPStatus
 
 from fastapi import HTTPException
+import requests
 
 from src.repository import models
 from src.repository.connection import DatabaseConnection
 from src.repository.operations import SqlAlchemyRepository
-from src.schemas.item import CreatedItem, CreateItem, Items
+from src.schemas.item import CreatedItem, CreateItem, Items, ItemsReward
 from src.schemas.user import UserCreated
 
 
@@ -33,9 +34,14 @@ class ItemService:
         items_list = [CreatedItem(**item.__dict__).dict() for item in items]
 
         return Items(
-            **self.calculate_bonus(items_list),
+            reward=self.calculate_bonus(items_list),
             items=items_list,
         )
+    
+    async def get_accumulated_credit(self) -> ItemsReward:
+        url = "https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback?cpf=12312312323"
+        response = requests.get(url)
+        return ItemsReward(accumulated=response.json()["body"]["credit"])
 
     @staticmethod
     def calculate_bonus(items: list) -> dict:

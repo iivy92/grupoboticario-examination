@@ -46,8 +46,13 @@ class CreatedItem(Item):
         return values
 
 
-class Items(BaseModel):
-    items: list[CreatedItem]
+class ItemsReward(BaseModel):
     total_sales: Optional[float]
     reward: Optional[float]
     fee: Optional[str]
+    accumulated: Optional[float]
+
+
+class Items(BaseModel):
+    items: list[CreatedItem]
+    reward: ItemsReward

@@ -4,7 +4,7 @@ from http import HTTPStatus
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
-from src.schemas.item import CreatedItem, Item, Items
+from src.schemas.item import CreatedItem, Item, Items, ItemsReward
 from src.schemas.user import UserCreated
 from src.services.items import ItemService
 from src.services.users import UserService
@@ -28,4 +28,13 @@ async def get_items(
     user: UserCreated = Depends(UserService().get_token_header),
 ) -> JSONResponse:
     item_created = await ItemService().get_items(user, date)
-    return JSONResponse(item_created.dict(), status_code=HTTPStatus.OK.value)
+    return JSONResponse(item_created.dict(exclude_none=True), status_code=HTTPStatus.OK.value)
+
+
+
+@router_item_v1.get("/accumulated-reward", status_code=HTTPStatus.OK.value, response_model=ItemsReward)
+async def get_items(
+    user: UserCreated = Depends(UserService().get_token_header),
+) -> JSONResponse:
+    credit = await ItemService().get_accumulated_credit()
+    return JSONResponse(credit.dict(exclude_none=True), status_code=HTTPStatus.OK.value)
