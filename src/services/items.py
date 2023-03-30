@@ -17,6 +17,13 @@ class ItemService:
         self._repository = SqlAlchemyRepository(self._session)
 
     async def create_item(self, item: CreateItem, user: UserCreated) -> CreatedItem:
+        item_from_db = self._repository.get_item_by_code(item.code)
+        if item_from_db:
+            raise HTTPException(
+                status_code=HTTPStatus.BAD_REQUEST.value,
+                detail="Item already registered",
+            )
+
         create_item = CreateItem(**item.dict(), user_cpf=user.cpf)
         item_created = self._repository.add(models.Item(**create_item.dict()))
         return CreatedItem(**item_created.__dict__)

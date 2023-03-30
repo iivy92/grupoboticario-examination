@@ -2,8 +2,13 @@ from http import HTTPStatus
 import pytest
 
 def test_create_item_successfully(client, item_created_sucessfully, auth_header):
-    response = client.post("/v1/item/create", json=item_created_sucessfully, headers=auth_header)
+    response = client.post("/v1/items/create", json=item_created_sucessfully, headers=auth_header)
     assert response.status_code == HTTPStatus.CREATED.value
+
+def test_create_item_already_exist(client, item_created_sucessfully, auth_header):
+    response = client.post("/v1/items/create", json=item_created_sucessfully, headers=auth_header)
+    assert response.status_code == HTTPStatus.BAD_REQUEST.value
+    assert response.text == '{"detail":"Item already registered"}'
 
 
 # def test_user_already_exists(client, user_signup_payload):
