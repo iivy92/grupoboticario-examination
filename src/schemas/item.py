@@ -1,14 +1,16 @@
 from datetime import date
-from pydantic import BaseModel, root_validator, validator
-from typing import Optional
 from enum import Enum
+from typing import Optional
 
+from pydantic import BaseModel, root_validator
 
 DEAFAULT_CPF = ["153.509.460-56", "15350946056"]
 
+
 class Status(str, Enum):
-    IN_VALIDATION = 'in_validation'
-    APPROVED = 'approved'
+    IN_VALIDATION = "in_validation"
+    APPROVED = "approved"
+
 
 class Item(BaseModel):
     code: str
@@ -32,15 +34,15 @@ class CreateItem(Item):
             values["status"] = Status.IN_VALIDATION.value
 
         if values["user_cpf"] in DEAFAULT_CPF:
-            values["status"] = Status.APPROVED.value    
+            values["status"] = Status.APPROVED.value
 
         return values
-    
+
 
 class CreatedItem(Item):
     @root_validator
     def set_date(cls, values):
-        values['date'] =  values['date'].strftime('%Y-%m-%d')
+        values["date"] = values["date"].strftime("%Y-%m-%d")
         return values
 
 

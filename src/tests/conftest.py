@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
-from validate_docbr import CPF
 from strgen import StringGenerator
+from validate_docbr import CPF
 
 from main import app
 from src.utils.authenticator import Authenticator
@@ -17,17 +17,18 @@ def client():
     client = TestClient(app)
     return client
 
+
 @pytest.fixture
 def authenticator():
     return Authenticator()
 
+
 @pytest.fixture(scope="session")
 def auth_header():
     access_token = Authenticator().generate_jwt_token(user_cpf)
-    headers = {
-        'Authorization': 'Bearer {}'.format(access_token)
-    }
+    headers = {"Authorization": "Bearer {}".format(access_token)}
     return headers
+
 
 @pytest.fixture
 def user_signup_payload():
@@ -56,8 +57,8 @@ def user_signin_dont_exist():
 
 @pytest.fixture
 def item_created_sucessfully():
-    return { 
+    return {
         "code": item_code,
-        "date": "2023-04-28", 
+        "date": "2023-04-28",
         "price": 134.9,
     }

@@ -1,14 +1,13 @@
-from datetime import datetime
-from http import HTTPStatus
 import datetime
+from http import HTTPStatus
 
 from fastapi import HTTPException
 
 from src.repository import models
 from src.repository.connection import DatabaseConnection
 from src.repository.operations import SqlAlchemyRepository
+from src.schemas.item import CreatedItem, CreateItem, Items
 from src.schemas.user import UserCreated
-from src.schemas.item import CreateItem, CreatedItem, Items
 
 
 class ItemService:
@@ -32,7 +31,7 @@ class ItemService:
         date = datetime.date.today() if date is None else date
         items = self._repository.get_items_by_cpf(user.cpf, date)
         items_list = [CreatedItem(**item.__dict__).dict() for item in items]
-        
+
         return Items(
             **self.calculate_bonus(items_list),
             items=items_list,
@@ -50,11 +49,7 @@ class ItemService:
                 reward = total * 0.15
                 fee = "15%"
             case _:
-                reward = total * 0.20 
-                fee = "20%"       
-        
-        return dict(
-            total_sales=total_sales,
-            reward=reward,
-            fee=fee
-        )
+                reward = total * 0.20
+                fee = "20%"
+
+        return dict(total_sales=total_sales, reward=reward, fee=fee)

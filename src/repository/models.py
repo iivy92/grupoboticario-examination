@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, ForeignKey
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, String
 
 from src.repository.connection import Base
 
@@ -21,4 +21,4 @@ class Item(Base):
     date = Column(Date)
     price = Column(Float)
     status = Column(String)
-    user_cpf = Column(String, ForeignKey('users.cpf'), index=True)
+    user_cpf = Column(String, ForeignKey("users.cpf"), index=True)

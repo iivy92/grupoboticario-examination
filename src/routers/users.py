@@ -18,7 +18,9 @@ async def signup_user(user: User) -> JSONResponse:
     return JSONResponse(user_created.dict(), status_code=HTTPStatus.CREATED.value)
 
 
-@router_user_v1.post("/signin", status_code=HTTPStatus.OK.value, response_model=UserToken)
+@router_user_v1.post(
+    "/signin", status_code=HTTPStatus.OK.value, response_model=UserToken
+)
 async def signin_user(
     user_credentials: OAuth2PasswordRequestForm = Depends(),
 ) -> JSONResponse:
@@ -27,5 +29,7 @@ async def signin_user(
 
 
 @router_user_v1.get("/me", status_code=HTTPStatus.OK.value, response_model=UserCreated)
-async def me(user: UserCreated = Depends(UserService().get_token_header)) -> JSONResponse:
+async def me(
+    user: UserCreated = Depends(UserService().get_token_header),
+) -> JSONResponse:
     return JSONResponse(user.dict(), status_code=HTTPStatus.OK.value)
