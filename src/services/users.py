@@ -10,7 +10,7 @@ from src.repository.operations import SqlAlchemyRepository
 from src.schemas.user import User, UserCreated, UserToken
 from src.utils.authenticator import Authenticator
 
-reuseable_oauth = OAuth2PasswordBearer(tokenUrl="v1/user/signin", scheme_name="JWT")
+reuseable_oauth = OAuth2PasswordBearer(tokenUrl="v1/users/signin", scheme_name="JWT")
 
 
 class UserService:
@@ -46,11 +46,11 @@ class UserService:
                 status_code=HTTPStatus.UNAUTHORIZED.value, detail="Invalid Credentials"
             )
 
-        token_jwt = self._authenticator.generate_jwt_token(user_from_db)
+        token_jwt = self._authenticator.generate_jwt_token(user_from_db.cpf)
 
         return UserToken(access_token=token_jwt)
 
-    async def verify_login(self, token=Depends(reuseable_oauth)) -> UserCreated:
+    async def get_token_header(self, token=Depends(reuseable_oauth)) -> UserCreated:
         token_payload = self._authenticator.decode_jwt_token(token)
 
         if datetime.fromtimestamp(token_payload["exp"]) < datetime.now():

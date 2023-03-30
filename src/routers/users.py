@@ -7,10 +7,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 from src.schemas.user import User, UserCreated, UserToken
 from src.services.users import UserService
 
-router_v1 = APIRouter(prefix="/v1/user")
+router_user_v1 = APIRouter(prefix="/v1/users", tags=["Users"])
 
 
-@router_v1.post(
+@router_user_v1.post(
     "/signup", status_code=HTTPStatus.CREATED.value, response_model=UserCreated
 )
 async def signup_user(user: User) -> JSONResponse:
@@ -18,7 +18,9 @@ async def signup_user(user: User) -> JSONResponse:
     return JSONResponse(user_created.dict(), status_code=HTTPStatus.CREATED.value)
 
 
-@router_v1.post("/signin", status_code=HTTPStatus.OK.value, response_model=UserToken)
+@router_user_v1.post(
+    "/signin", status_code=HTTPStatus.OK.value, response_model=UserToken
+)
 async def signin_user(
     user_credentials: OAuth2PasswordRequestForm = Depends(),
 ) -> JSONResponse:
@@ -26,6 +28,8 @@ async def signin_user(
     return JSONResponse(token_jwt.dict(), status_code=HTTPStatus.OK.value)
 
 
-@router_v1.get("/me", status_code=HTTPStatus.OK.value, response_model=UserCreated)
-async def me(user: UserCreated = Depends(UserService().verify_login)) -> JSONResponse:
+@router_user_v1.get("/me", status_code=HTTPStatus.OK.value, response_model=UserCreated)
+async def me(
+    user: UserCreated = Depends(UserService().get_token_header),
+) -> JSONResponse:
     return JSONResponse(user.dict(), status_code=HTTPStatus.OK.value)

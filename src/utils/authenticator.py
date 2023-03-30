@@ -5,7 +5,7 @@ import jwt
 from fastapi.exceptions import HTTPException
 from passlib.context import CryptContext
 
-SECRET = "my-secret"
+SECRET = "B4FvQWnTp718vr6AHyvdGlrHBGNcvuM4y3jUeRCgXxIwBZIbt"
 
 
 class Authenticator:
@@ -18,9 +18,9 @@ class Authenticator:
     def get_hashed_password(self, password: str):
         return self.pwd_context.hash(password)
 
-    def generate_jwt_token(self, user):
+    def generate_jwt_token(self, cpf):
         jwt_payload = {
-            "user": user.cpf,
+            "user": cpf,
             "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
         }
         return jwt.encode(jwt_payload, SECRET, algorithm="HS256")
