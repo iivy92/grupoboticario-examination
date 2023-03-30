@@ -1,7 +1,6 @@
 import sqlalchemy
 from sqlalchemy.orm import Session, sessionmaker
 
-
 SQLALCHEMY_DATABASE_URL = "sqlite:///./cashback.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://default:root@127.0.0.1:5432/cashback"
 

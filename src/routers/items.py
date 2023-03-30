@@ -28,12 +28,15 @@ async def get_items(
     user: UserCreated = Depends(UserService().get_token_header),
 ) -> JSONResponse:
     item_created = await ItemService().get_items(user, date)
-    return JSONResponse(item_created.dict(exclude_none=True), status_code=HTTPStatus.OK.value)
+    return JSONResponse(
+        item_created.dict(exclude_none=True), status_code=HTTPStatus.OK.value
+    )
 
 
-
-@router_item_v1.get("/accumulated-reward", status_code=HTTPStatus.OK.value, response_model=ItemsReward)
-async def get_items(
+@router_item_v1.get(
+    "/accumulated-credit", status_code=HTTPStatus.OK.value, response_model=ItemsReward
+)
+async def get_accumulated_credit(
     user: UserCreated = Depends(UserService().get_token_header),
 ) -> JSONResponse:
     credit = await ItemService().get_accumulated_credit()

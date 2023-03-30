@@ -1,8 +1,8 @@
 import datetime
 from http import HTTPStatus
 
-from fastapi import HTTPException
 import requests
+from fastapi import HTTPException
 
 from src.repository import models
 from src.repository.connection import DatabaseConnection
@@ -37,7 +37,7 @@ class ItemService:
             reward=self.calculate_bonus(items_list),
             items=items_list,
         )
-    
+
     async def get_accumulated_credit(self) -> ItemsReward:
         url = "https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback?cpf=12312312323"
         response = requests.get(url)
