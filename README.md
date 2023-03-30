@@ -42,7 +42,7 @@ Ou use docker para subir o projeto em um container
   docker-compose up --build 
 ```
 
-## Executando os testes
+## Executando os testes 📈
 
 ```bash
   make test
