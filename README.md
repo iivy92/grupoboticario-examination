@@ -1,6 +1,6 @@
 
 # Grupo Boticário - Teste Técnico 💻
-Esta aplicação tem como objetivo informar ao revendedor informações sobre benefícios de acordo com o volume de venda. 
+Esta aplicação tem como objetivo informar ao revendedor informações sobre cashback de acordo com o volume de venda. 
 
 
 ## Rodando localmente 
