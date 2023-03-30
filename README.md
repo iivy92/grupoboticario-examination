@@ -3,7 +3,7 @@
 Esta aplicação tem como objetivo informar ao revendedor informações sobre cashback de acordo com o volume de venda. 
 
 
-## Rodando localmente 
+## Rodando localmente ⚙️
 
 Clone o projeto
 
@@ -49,11 +49,11 @@ Ou use docker para subir o projeto em um container
 ```
 
 
-## Documentação 
+## Documentação 📝 
 após subir aplição, documentação swagger disponível [aqui](http://0.0.0.0:8000/docs)
 
 
-## Rotas
+## Rotas 🌐
 #### Realizar cadastro de revendedor 
 ```http
   POST /v1/users/signup
